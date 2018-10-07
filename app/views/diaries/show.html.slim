@@ -1,0 +1,22 @@
+.page-header
+  = link_to diaries_path, class: 'btn btn-default' do 
+    span.glyphicon.glyphicon-list-alt
+    |  Back 
+  = link_to edit_diary_path(@diary), class: 'btn btn-primary' do 
+    span.glyphicon.glyphicon-pencil
+    |  Edit 
+  h1
+    | Show diary
+dl.dl-horizontal
+  dt
+    | User:
+  dd
+    = @diary.user_id
+  dt
+    | Body:
+  dd
+    = @diary.body
+  dt
+    | Negaposi:
+  dd
+    = @diary.negaposi

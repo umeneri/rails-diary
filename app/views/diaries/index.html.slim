@@ -1,0 +1,35 @@
+.page-header
+  = link_to new_diary_path, class: 'btn btn-primary' do 
+    span.glyphicon.glyphicon-plus
+    |  New Diary
+  h1
+    | Listing diaries
+
+.table-responsive
+  table.table.table-striped.table-bordered.table-hover
+    thead
+      tr
+        th
+          | User
+        th
+          | Body
+        th
+          | Negaposi
+        th
+        th
+        th
+    tbody
+      - @diaries.each do | diary |
+        tr
+          td
+            = diary.user_id
+          td
+            = diary.body
+          td
+            = diary.negaposi
+          td
+            = link_to 'Show', diary
+          td
+            = link_to 'Edit', edit_diary_path(diary) 
+          td
+            = link_to 'Destroy', diary, method: :delete, data: { confirm: 'Are you sure?' } 
