@@ -7,10 +7,9 @@ ADD Gemfile      $HOME/Gemfile
 ADD Gemfile.lock $HOME/Gemfile.lock
 
 RUN apt-get update -qq && apt-get install -y build-essential mysql-client  nodejs vim
+RUN bundle install
 
-RUN bundle install -j4
-
-ADD . $HOME
+COPY . $HOME
 
 CMD ["rails", "server", "-b", "0.0.0.0"]
 

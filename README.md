@@ -1,24 +1,23 @@
-# README
+# Getting Started
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+$ docker-compose build
+$ docker-compose run --rm web rake db:create
+$ docker-compose run --rm web rails db:migrate
+$ docker-compose up -d
+$ open http://localhost:3000
 
-Things you may want to cover:
+# Scaffolding
 
-* Ruby version
 
-* System dependencies
+# Deploying
+$ heroku login
+$ heroku container:login
+$ heroku addons:create heroku-mysql:hobby-dev
+$ heroku create
+$ heroku container:push web
+$ heroku open
 
-* Configuration
+# Initialization
+$ docker-compose run --rm web rails new . --force --database=mysql --skip-bundle
 
-* Database creation
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
