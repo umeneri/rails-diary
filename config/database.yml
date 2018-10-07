@@ -1,0 +1,21 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: root
+  password:
+  host: db
+
+development:
+  <<: *default
+  database: happydiary_development
+
+test:
+  <<: *default
+  database: happydiary_test
+
+production:
+  <<: *default
+  database: happydiary_production
+  username: happydiary
+  password: <%= ENV['HAPPYDIARY_DATABASE_PASSWORD'] %>
