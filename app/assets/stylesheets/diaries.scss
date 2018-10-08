@@ -1,3 +1,15 @@
-// Place all the styles related to the diaries controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.jsCalendar-current {
+  background-color: #ffffff;
+}
+
+.negative {
+  background-color: #6600ee;
+  border-radius: 18px;
+  color: #FFF;
+}
+
+.positive {
+  background-color: #ff88ee;
+  border-radius: 18px;
+  color: #FFF;
+}
