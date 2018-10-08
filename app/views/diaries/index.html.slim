@@ -1,5 +1,5 @@
 .page-header
-  = link_to new_diary_path, class: 'btn btn-primary' do 
+  = link_to new_diary_path, class: 'btn btn-primary' do
     span.glyphicon.glyphicon-plus
     |  New Diary
   h1
@@ -30,6 +30,6 @@
           td
             = link_to 'Show', diary
           td
-            = link_to 'Edit', edit_diary_path(diary) 
+            = link_to 'Edit', edit_diary_path(diary)
           td
-            = link_to 'Destroy', diary, method: :delete, data: { confirm: 'Are you sure?' } 
+            = link_to 'Destroy', diary, method: :delete, data: { confirm: 'Are you sure?' }

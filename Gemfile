@@ -12,6 +12,8 @@ gem 'slim-rails', '3.1.1'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'bootstrap-sass'
 gem 'bootstrap-generators', '~> 3.3.4'
+gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

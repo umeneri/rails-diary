@@ -1,2 +1,15 @@
-// Place all the behaviors and hooks related to the matching controller here.
-// All this logic will automatically be available in application.js.
+function test() {
+  console.log('test');
+}
+
+test();
+
+$(window).on('load', function(){
+  liff.init(function (data) {
+    var userId = data.context.userId;
+    window.alert(userId);
+  }, function(error) {
+    window.alert(error);
+  });
+});
+
