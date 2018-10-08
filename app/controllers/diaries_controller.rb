@@ -1,5 +1,6 @@
 class DiariesController < ApplicationController
   before_action :set_diary, only: [:show, :edit, :update, :destroy]
+  skip_before_action :verify_authenticity_token, :only => [:create]
 
   # GET /diaries
   # GET /diaries.json
@@ -24,7 +25,9 @@ class DiariesController < ApplicationController
   # POST /diaries
   # POST /diaries.json
   def create
+    p request
     @diary = Diary.new(diary_params)
+
 
     respond_to do |format|
       if @diary.save
