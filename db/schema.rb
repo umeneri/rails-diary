@@ -13,11 +13,12 @@
 ActiveRecord::Schema.define(version: 2018_10_07_220604) do
 
   create_table "diaries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin ROW_FORMAT=DYNAMIC", force: :cascade do |t|
-    t.string "user_id"
-    t.text "body"
-    t.integer "negaposi"
+    t.string "user_id", limit: 36, default: "", null: false
+    t.text "body", null: false
+    t.integer "negaposi", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_diaries_on_created_at"
     t.index ["user_id"], name: "index_diaries_on_user_id"
   end
 
