@@ -1,6 +1,6 @@
 class DiariesController < ApplicationController
   before_action :set_diary, only: [:show, :edit, :update, :destroy]
-  skip_before_action :verify_authenticity_token, :only => [:create]
+  skip_before_action :verify_authenticity_token, :only => [:create, :find]
 
   # GET /diaries
   # GET /diaries.json
@@ -75,6 +75,19 @@ class DiariesController < ApplicationController
     start_date = target_date.beginning_of_month
     end_date = target_date.end_of_month
     @diaries = Diary.where('created_at > ? AND created_at < ?', start_date, end_date)
+  end
+
+  def find
+    target_date = if (params[:date])
+                    Date.parse(params[:date])
+                  else
+                    Date.current
+                  end
+
+    p target_date
+    start_date = target_date.beginning_of_day
+    end_date = target_date.end_of_day
+    @diaries = Diary.where(user_id: params[:user_id]).where('created_at > ? AND created_at < ?', start_date, end_date)
   end
 
   private

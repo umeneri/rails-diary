@@ -42,16 +42,11 @@ function initCalendar() {
   };
   myCalendar._construct([element, date, options ]);
 
-  console.log(myCalendar);
-
   getDiaries(date);
-
-  var inputA = document.getElementById("my-input-a");
-  var inputB = document.getElementById("my-input-b");
 
   myCalendar.onDateClick(function(event, date){
     inputA.value = date.toString();
-    text = '閲覧:' + date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
+    text = '閲覧:' + date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
     send(text);
   });
 
