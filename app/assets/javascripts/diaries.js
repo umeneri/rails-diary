@@ -36,6 +36,7 @@ function initCalendar() {
   var element = document.getElementById("my-calendar");
   var myCalendar = new jsCalendar();
   myCalendar._construct([element]);
+
   console.log(myCalendar);
 
   var inputA = document.getElementById("my-input-a");
