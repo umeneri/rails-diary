@@ -18,6 +18,9 @@ test:
 
 production:
   <<: *default
-  database: happydiary_production
-  username: happydiary
-  password: <%= ENV['HAPPYDIARY_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
+  database: <%= ENV['DB_NAME'] %>
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+  host: <%= ENV['DB_HOSTNAME'] %>
+
