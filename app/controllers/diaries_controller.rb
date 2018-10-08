@@ -25,9 +25,7 @@ class DiariesController < ApplicationController
   # POST /diaries
   # POST /diaries.json
   def create
-    p request
     @diary = Diary.new(diary_params)
-
 
     respond_to do |format|
       if @diary.save
@@ -64,8 +62,19 @@ class DiariesController < ApplicationController
     end
   end
 
+  def calendar_index
+  end
+
   def calendar
-    @diaries = Diary.all
+    target_date = if (params[:year] && params[:month])
+                    Date.new(params[:year].to_i, params[:month].to_i)
+                  else
+                    Date.current
+                  end
+
+    start_date = target_date.beginning_of_month
+    end_date = target_date.end_of_month
+    @diaries = Diary.where('created_at > ? AND created_at < ?', start_date, end_date)
   end
 
   private
