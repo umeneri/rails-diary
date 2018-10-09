@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_07_220604) do
+ActiveRecord::Schema.define(version: 2018_10_08_113609) do
+
+  create_table "characters", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.string "user_id", limit: 36, default: "", null: false
+    t.bigint "diary_id", null: false
+    t.string "name", limit: 191, default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["diary_id"], name: "index_characters_on_diary_id"
+    t.index ["user_id", "name"], name: "index_characters_on_user_id_and_name"
+  end
 
   create_table "diaries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "user_id", limit: 36, default: "", null: false
@@ -22,4 +32,5 @@ ActiveRecord::Schema.define(version: 2018_10_07_220604) do
     t.index ["user_id"], name: "index_diaries_on_user_id"
   end
 
+  add_foreign_key "characters", "diaries"
 end

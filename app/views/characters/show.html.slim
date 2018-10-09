@@ -1,0 +1,22 @@
+.page-header
+  = link_to characters_path, class: 'btn btn-default' do 
+    span.glyphicon.glyphicon-list-alt
+    |  Back 
+  = link_to edit_character_path(@character), class: 'btn btn-primary' do 
+    span.glyphicon.glyphicon-pencil
+    |  Edit 
+  h1
+    | Show character
+dl.dl-horizontal
+  dt
+    | User:
+  dd
+    = @character.user_id
+  dt
+    | Diary:
+  dd
+    = @character.diary_id
+  dt
+    | Name:
+  dd
+    = @character.name

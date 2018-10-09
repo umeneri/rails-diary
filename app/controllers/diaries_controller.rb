@@ -1,6 +1,6 @@
 class DiariesController < ApplicationController
   before_action :set_diary, only: [:show, :edit, :update, :destroy]
-  skip_before_action :verify_authenticity_token, :only => [:create, :find]
+  skip_before_action :verify_authenticity_token, :only => [:create, :find, :find_by_character]
 
   # GET /diaries
   # GET /diaries.json
@@ -28,7 +28,7 @@ class DiariesController < ApplicationController
     @diary = Diary.new(diary_params)
 
     respond_to do |format|
-      if @diary.save
+      if @diary.save_with_characters
         format.html { redirect_to @diary, notice: 'Diary was successfully created.' }
         format.json { render :show, status: :created, location: @diary }
       else
@@ -88,6 +88,11 @@ class DiariesController < ApplicationController
     start_date = target_date.beginning_of_day
     end_date = target_date.end_of_day
     @diaries = Diary.where(user_id: params[:user_id]).where('created_at > ? AND created_at < ?', start_date, end_date)
+  end
+
+  def find_by_character
+    @characters = Character.where(user_id: params[:user_id]).where(name: params[:name])
+    @diaries = Diary.where(user_id: params[:user_id]).where(id: @characters.pluck(:diary_id))
   end
 
   private
