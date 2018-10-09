@@ -45,20 +45,16 @@ function initCalendar() {
   getDiaries(date);
 
   myCalendar.onDateClick(function(event, date){
-    inputA.value = date.toString();
     text = '閲覧:' + date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
     send(text);
   });
 
   myCalendar.onMonthChange(function(event, date){
-    inputB.value = date.toString();
-    console.log(date.getMonth());
     getDiaries(date);
   });
 };
 
 function getDiaries(date) {
-  var dateElements = $('#my-calendar td').not('.jsCalendar-next').not('.jsCalendar-previous');
 
   $.ajax({
     url: '/calendar.json',
@@ -66,33 +62,38 @@ function getDiaries(date) {
       year: date.getFullYear(),
       month: date.getMonth() + 1,
     },
-    success: function(diaries, dataType) {
-      console.log('success');
-      console.log(diaries);
-
-      diaries.forEach(function(diary) {
-        var createdAt = new Date(diary.created_at)
-
-        console.log(diary);
-        console.log(createdAt.getDate());
-
-        var size = 24 + Math.abs(diary.negaposi) * 4
-
-        if (diary.negaposi > 0) {
-          $(dateElements[createdAt.getDate() - 1]).addClass('positive')
-            .css('width',  size + 'px')
-            .css('height',  size + 'px')
-            .css('line-height',  size + 'px');
-        } else if (diary.negaposi < 0) {
-          $(dateElements[createdAt.getDate() - 1]).addClass('negative')
-            .css('width',  size + 'px')
-            .css('height',  size + 'px')
-            .css('line-height',  size + 'px');
-        }
-      });
-    },
+    success: displayDiaryColor,
     error: function(request, status, error) {
-      console.log('error');
+      console.error('error');
     },
+  });
+}
+
+function displayDiaryColor(diaries, dataType) {
+  var dateElements = $('#my-calendar td').not('.jsCalendar-next').not('.jsCalendar-previous');
+  console.log(diaries);
+
+  diaries.forEach(function(diary) {
+    var createdAt = new Date(diary.created_at)
+    var scale = Math.abs(diary.negaposi)
+    var size = 24 + scale * 4
+    var marginVertical = 1 + (3 - scale) * 2;
+    var marginHorizontal = 2 + (3 - scale) * 2;
+
+    if (diary.negaposi > 0) {
+      var element = $(dateElements[createdAt.getDate() - 1])
+        .addClass('positive')
+        .css('width',  size + 'px')
+        .css('height',  size + 'px')
+        .css('line-height',  size + 'px')
+        .css('margin', marginVertical + 'px ' + marginHorizontal + 'px');
+    } else if (diary.negaposi < 0) {
+      $(dateElements[createdAt.getDate() - 1])
+        .addClass('negative')
+        .css('width',  size + 'px')
+        .css('height',  size + 'px')
+        .css('line-height',  size + 'px')
+        .css('margin', marginVertical + 'px ' + marginHorizontal + 'px');
+    }
   });
 }
