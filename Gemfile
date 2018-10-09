@@ -14,6 +14,7 @@ gem 'bootstrap-sass'
 gem 'bootstrap-generators', '~> 3.3.4'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+gem 'rest-client'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
