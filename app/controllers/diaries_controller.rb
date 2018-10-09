@@ -27,7 +27,9 @@ class DiariesController < ApplicationController
 
     start_date = target_date.beginning_of_month
     end_date = target_date.end_of_month
+
     @diaries = Diary.where('created_at > ? AND created_at < ?', start_date, end_date)
+                    .where(user_id: params[:userId])
                     .order(:created_at)
   end
 

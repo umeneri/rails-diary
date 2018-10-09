@@ -16,22 +16,20 @@ function send(text) {
 }
 
 $(window).on('load', function(){
-  liff.init(function (data) {
-    if (navigator.userAgent.indexOf("LINE") != -1){
+  if (navigator.userAgent.indexOf("Line") !== -1) {
+    liff.init(function (data) {
       var userId = data.context.userId;
-      window.alert(userId);
-    }
-  }, function(error) {
-    if (navigator.userAgent.indexOf("LINE") != -1){
+      initCalendar(userId);
+    }, function(error) {
       window.alert(error);
-    }
-  });
-
-  initCalendar();
+    });
+  } else {
+    initCalendar('');
+  }
 });
 
 
-function initCalendar() {
+function initCalendar(userId) {
 
   var element = document.getElementById("my-calendar");
   var myCalendar = new jsCalendar();
@@ -43,7 +41,7 @@ function initCalendar() {
 
   $('.jsCalendar-current').removeClass('jsCalendar-current');
 
-  getDiaries(date);
+  getDiaries(userId, date);
 
   myCalendar.onDateClick(function(event, date){
     text = '閲覧:' + date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
@@ -51,18 +49,23 @@ function initCalendar() {
   });
 
   myCalendar.onMonthChange(function(event, date){
-    getDiaries(date);
+    getDiaries(userId, date);
   });
 };
 
-function getDiaries(date) {
+function getDiaries(userId, date) {
+  var data = {
+    year: date.getFullYear(),
+    month: date.getMonth() + 1,
+  };
+
+  if (userId != null || userId !== '') {
+    data.userId = userId;
+  }
 
   $.ajax({
     url: '/calendar.json',
-    data: {
-      year: date.getFullYear(),
-      month: date.getMonth() + 1,
-    },
+    data: data,
     success: displayDiaryColor,
     error: function(request, status, error) {
       console.error('error');
