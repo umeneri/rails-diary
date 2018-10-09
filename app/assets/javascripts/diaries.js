@@ -34,6 +34,7 @@ $(window).on('load', function(){
 
 
 function initCalendar() {
+
   var element = document.getElementById("my-calendar");
   var myCalendar = new jsCalendar();
   var date = new Date();
@@ -41,6 +42,8 @@ function initCalendar() {
     monthFormat: 'month YYYY'
   };
   myCalendar._construct([element, date, options ]);
+
+  $('.jsCalendar-current').removeClass('jsCalendar-current');
 
   getDiaries(date);
 
@@ -71,7 +74,6 @@ function getDiaries(date) {
 
 function displayDiaryColor(diaries, dataType) {
   var dateElements = $('#my-calendar td').not('.jsCalendar-next').not('.jsCalendar-previous');
-  console.log(diaries);
 
   diaries.forEach(function(diary) {
     var createdAt = new Date(diary.created_at)
@@ -80,20 +82,27 @@ function displayDiaryColor(diaries, dataType) {
     var marginVertical = 1 + (3 - scale) * 2;
     var marginHorizontal = 2 + (3 - scale) * 2;
 
-    if (diary.negaposi > 0) {
+    if (diary.negaposi > 0.5) {
       var element = $(dateElements[createdAt.getDate() - 1])
         .addClass('positive')
         .css('width',  size + 'px')
         .css('height',  size + 'px')
         .css('line-height',  size + 'px')
         .css('margin', marginVertical + 'px ' + marginHorizontal + 'px');
-    } else if (diary.negaposi < 0) {
+    } else if (diary.negaposi < -0.5) {
       $(dateElements[createdAt.getDate() - 1])
         .addClass('negative')
         .css('width',  size + 'px')
         .css('height',  size + 'px')
         .css('line-height',  size + 'px')
         .css('margin', marginVertical + 'px ' + marginHorizontal + 'px');
+    } else {
+      $(dateElements[createdAt.getDate() - 1])
+        .css('width', '24px')
+        .css('height', '24px')
+        .css('line-height',  '24px')
+        .css('border-radius', '50%')
+        .css('border', '1px solid #666');
     }
   });
 }
