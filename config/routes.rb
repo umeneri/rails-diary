@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
-  resources :characters do
+  resources :characters, only: [] do
     collection do
       post 'find', to: 'characters#find'
       post 'diaries', to: 'diaries#find_by_character'
     end
   end
 
-  resources :diaries do
+  resources :diaries, only: [:create] do
     collection do
       post 'find', to: 'diaries#find'
     end
