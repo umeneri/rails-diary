@@ -1,7 +1,5 @@
 function send(text) {
   liff.getProfile().then(function (profile) {
-    window.alert(profile);
-
     liff.sendMessages([
       {
         type: 'text',
