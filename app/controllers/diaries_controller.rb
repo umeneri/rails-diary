@@ -35,9 +35,9 @@ class DiariesController < ApplicationController
 
   def find
     target_date = if (params[:date])
-                    Date.parse(params[:date])
+                    Time.parse(params[:date])
                   else
-                    Date.current
+                    Time.current
                   end
 
     start_date = target_date.beginning_of_day
